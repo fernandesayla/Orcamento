@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Orcamento</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_clients">Clientes</string>
+
+    <string name="prompt_password">Password (opcional)</string>
+    <string name="title_settings">Configurações</string>
+    <string name="error_invalid_email">Este endereço de email é invalido</string>
+    <string name="error_invalid_password">Password é muito curto</string>
+    <string name="error_incorrect_password">Password está incorreto</string>
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="permission_rationale">Permissão para acessar os contatos para promover email autocomplete.</string>
+</resources>

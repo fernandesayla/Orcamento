@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "38353379824",
+    "firebase_url": "https://orcamento-903c0.firebaseio.com",
+    "project_id": "orcamento-903c0",
+    "storage_bucket": "orcamento-903c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38353379824:android:c398a2ed38a7e9c2",
+        "android_client_info": {
+          "package_name": "br.com.aylafernandes.orcamento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38353379824-usv575h1qd6jb39silt9csdt1ujee4t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.aylafernandes.orcamento",
+            "certificate_hash": "2299f9143168303c2a12e8dd2e624b1f67281f66"
+          }
+        },
+        {
+          "client_id": "38353379824-t5e6sllh75rlg8ogrg377snvi0qpmp1a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "38353379824-t5e6sllh75rlg8ogrg377snvi0qpmp1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIH8HmaQhglJQAAwB_8pCLTarUkhZ8eHs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38353379824-t5e6sllh75rlg8ogrg377snvi0qpmp1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
