@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Orcamento</string>
+    <string name="app_name">Orçamento</string>
     <string name="title_home" translatable="false">Home</string>
     <string name="title_settings">Settings</string>
     <string name="title_activity_login" translatable="false">Sign in</string>
