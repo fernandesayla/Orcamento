@@ -11,17 +11,20 @@ import java.util.Map;
 
 
 @IgnoreExtraProperties
-public class User {
+public class Clients {
 
+        public final static String TAG_ANDROID = "android";
+
+        public final static String TAG_CELL = "nome";
 
         public String cell;
         public String email;
 
-        public User() {
+        public Clients() {
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
-        public User(String username, String email) {
+        public Clients(String username, String email) {
             this.cell = username;
             this.email = email;
         }
@@ -36,4 +39,19 @@ public class User {
         return result;
     }
 
+    public String getCell() {
+        return cell;
     }
+
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
