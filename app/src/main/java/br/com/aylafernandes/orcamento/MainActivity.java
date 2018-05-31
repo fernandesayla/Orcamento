@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,16 +26,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    goToHome();
+
+                    goToFragment(new HomeFragment());
                     return true;
                 case R.id.navigation_profile:
-                    goToProfile();
+
+                    goToFragment(new ProfileFragment());
                     return true;
                 case R.id.navigation_clients:
-                    goToClientes();
+
+                    goToFragment(new ClientsFragment());
                     return true;
                 case R.id.navigation_settings:
-                    goToSettings();
+                     goToFragment( new SettingsFragment());
                     return true;
             }
             return false;
@@ -42,14 +46,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    private void goToClientes(){
-        ClientsFragment fragment = new ClientsFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flMain, fragment);
-        ft.commit();
-    }
-    private void goToProfile() {
-        ProfileFragment fragment = new ProfileFragment();
+
+    private void goToFragment(Fragment fragment){
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flMain, fragment);
         ft.commit();
@@ -57,19 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void goToHome() {
-        HomeFragment fragment = new HomeFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flMain, fragment);
-        ft.commit();
-    }
-
-    private void goToSettings() {
-        SettingsFragment fragment = new SettingsFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flMain, fragment);
-        ft.commit();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

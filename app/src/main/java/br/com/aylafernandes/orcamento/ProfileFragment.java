@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -36,7 +37,9 @@ public class ProfileFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.profileImage);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            imageView.setImageURI(user.getPhotoUrl());
+
+            Picasso.get().load(user.getPhotoUrl()).into(imageView);
+
             mMameAndSurname.setText(user.getDisplayName());
 
         }
