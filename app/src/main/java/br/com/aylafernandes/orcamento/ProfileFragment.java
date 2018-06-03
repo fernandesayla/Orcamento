@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import br.com.aylafernandes.orcamento.models.User;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,13 +37,22 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         // Inflate the layout for this fragment
         TextView mMameAndSurname = view.findViewById(R.id.nameAndSurname);
-        ImageView imageView = view.findViewById(R.id.profileImage);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        CircleImageView imageView = view.findViewById(R.id.profileImage);
+        TextView email = view.findViewById(R.id.profile_email);
+
+        Bundle parametros = getArguments();
+        User user = (User) parametros.getSerializable("user");
+
         if (user != null) {
 
+
+
+
+            mMameAndSurname.setText(user.getName());
+            email.setText(user.getEmail());
             Picasso.get().load(user.getPhotoUrl()).into(imageView);
 
-            mMameAndSurname.setText(user.getDisplayName());
+
 
         }
 
@@ -49,28 +61,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
-//
-//    private void  getUser(){
-//
-//        if (user != null) {
-//            // Name, email address, and profile photo Url
-//
-//
-//            String name = user.getDisplayName();
-//
-//            String email = user.getEmail();
-//            Uri photoUrl = user.getPhotoUrl();
-//
-//
-//
-//            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//            // authenticate with your backend server, if you have one. Use
-//            // FirebaseUser.getToken() instead.
-//            String uid = user.getUid();
-//
-//            updateUI(user);
-//           // Log.d("USER:", email + " - "+  photoUrl + " - "+  name);
-//        }
-//    }
+
+
 
 }

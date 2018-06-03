@@ -24,6 +24,8 @@ import com.facebook.appevents.AppEventsLogger;
 
 import com.google.android.gms.tasks.Task;
 
+import br.com.aylafernandes.orcamento.models.User;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -58,13 +60,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                // ...
+
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                // ...
+
             }
         });
 
@@ -85,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
 
-        updateUI(currentUser);
+        goToMain(currentUser);
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -100,31 +102,30 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            goToMain(user);
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            goToMain(null);
                         }
 
-                        // ...
+
                     }
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
+
+
+    private void goToMain(FirebaseUser user) {
 
         if (user != null) {
 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
             startActivity(intent);
-
             finish();
-
         }
 
 

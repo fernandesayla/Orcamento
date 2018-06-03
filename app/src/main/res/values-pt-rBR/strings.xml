@@ -11,4 +11,5 @@
     <string name="error_incorrect_password">Password está incorreto</string>
     <string name="error_field_required">Campo obrigatório</string>
     <string name="permission_rationale">Permissão para acessar os contatos para promover email autocomplete.</string>
+    <string name="title_maps">Map</string>
 </resources>

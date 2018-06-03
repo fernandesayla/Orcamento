@@ -3,26 +3,37 @@ package br.com.aylafernandes.orcamento;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.aylafernandes.orcamento.adapter.ClientsAdapter;
-import br.com.aylafernandes.orcamento.models.Clients;
+import br.com.aylafernandes.orcamento.adapter.listener.OnItemClientClickListener;
+import br.com.aylafernandes.orcamento.dao.ClientDao;
+import br.com.aylafernandes.orcamento.models.Client;
+import br.com.aylafernandes.orcamento.models.User;
 
 
 /**
@@ -30,13 +41,13 @@ import br.com.aylafernandes.orcamento.models.Clients;
  */
 
 public class ClientsFragment extends Fragment {
-    List<Clients> listClients =  new ArrayList <Clients>();
+    List<Client> listClients =  new ArrayList <Client>();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mclientsRef = mRootRef.child("clients");
+    DatabaseReference mclientsRef;
     String TAG = "FireBase";
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
-
+    FloatingActionButton fab;
 
 
     public ClientsFragment() {
@@ -50,17 +61,61 @@ public class ClientsFragment extends Fragment {
             // Inflate the layout for this fragment
 
             View rootView = inflater.inflate(R.layout.fragment_clients, container, false);
-
+            setHasOptionsMenu(true);
+            fab =  rootView.findViewById(R.id.fab);
             mRecycler = (RecyclerView) rootView.findViewById(R.id.rv_fragment_clientes);
             mRecycler.setHasFixedSize(true);
 
-            updateFireBase();
+            Bundle parametros = getArguments();
+            User user = (User) parametros.getSerializable("user");
+
+            mclientsRef = mRootRef.child("users").child(user.getUid()).child("clients");
 
 
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.selectClient(new Client(), new ClientEditFragment());
+
+
+                }
+            });
+
+            updateFireBase(user);
+
+        setUpRecyclerView(listClients);
             return rootView;
 
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_location_clients, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.location_menu_item_maps){
+                 MainActivity mainActivity = (MainActivity) getActivity();
+            ArrayList<String> address = new ArrayList <>();
+            for (Client client : listClients){
+                    Log.d(TAG, client.getAddress());
+                    address.add(client.getAddress());
+                 }
+
+            mainActivity.goToMapsClients(address);
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 
@@ -76,23 +131,28 @@ public class ClientsFragment extends Fragment {
     }
 
 
-    private   void updateFireBase(){
+    private   void updateFireBase(User user){
+
+        DatabaseReference mclientsRef = mRootRef.child("users").child(user.getUid()).child("clients");
         mclientsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                listClients = new ArrayList <Client>();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                    String clientId = (String) messageSnapshot.getKey();
+                    String address = (String) messageSnapshot.child("address").getValue();
+                    String name = (String) messageSnapshot.child("name").getValue();
+                    String cell = (String) messageSnapshot.child("cell").getValue();
+                    String email = (String) messageSnapshot.child("email").getValue();
+                    String photoUrl = (String) messageSnapshot.child("photourl").getValue();
+                    String hair = (String) messageSnapshot.child("hair").getValue();
 
-                        String name = (String) messageSnapshot.child("name").getValue();
-                        String message = (String) messageSnapshot.child("cell").getValue();
-                        String photoUrl = (String) messageSnapshot.child("photourl").getValue();
-                        String cabelo = (String) messageSnapshot.child("cabelo").getValue();
+                    //String photoUrl = "";
+                    Log.w(TAG, name + " - " + cell + " - " + hair + " - " + clientId);
+                    Client client = new Client(clientId, name, cell, email, photoUrl, hair, address);
 
-                        //String photoUrl = "";
-                        Log.w(TAG, name + " - " + message + " - " + cabelo);
-                        Clients client = new Clients(name, message, photoUrl, cabelo);
 
-                        listClients.add(client);
+                    listClients.add(client);
                 }
 
                 setUpRecyclerView(listClients);
@@ -109,7 +169,7 @@ public class ClientsFragment extends Fragment {
         });
 
     }
-    private void setUpRecyclerView(List<Clients> listClients) {
+    private void setUpRecyclerView(List<Client> listClients ) {
 
 
         ClientsAdapter adapter = new ClientsAdapter(getContext(), listClients );
@@ -117,11 +177,23 @@ public class ClientsFragment extends Fragment {
 
         mRecycler.setAdapter(adapter);
 
+        adapter.setOnItemClientClickListener(new OnItemClientClickListener() {
+            @Override
+            public void onItemClick(Client client) {
 
+
+                MainActivity mainActivity = (MainActivity) getActivity();
+
+                mainActivity.selectClient(client, new ClientDetailFragment());
+
+            }
+        });
 
 
 
 
     }
+
+
 
 }
