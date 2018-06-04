@@ -103,13 +103,9 @@ public class ClientsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.location_menu_item_maps){
                  MainActivity mainActivity = (MainActivity) getActivity();
-            ArrayList<String> address = new ArrayList <>();
-            for (Client client : listClients){
-                    Log.d(TAG, client.getAddress());
-                    address.add(client.getAddress());
-                 }
 
-            mainActivity.goToMapsClients(address);
+
+            mainActivity.goToMapsClients();
 
         }
 

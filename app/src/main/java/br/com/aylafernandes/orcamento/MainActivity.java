@@ -149,12 +149,9 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-    public void goToMapsClients(ArrayList<String> address) {
+    public void goToMapsClients() {
 
         mapsFragment =  new MapsFragment();
-        Bundle parameters = new Bundle();
-        parameters.putStringArrayList("clients", address);
-        mapsFragment.setArguments(parameters);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.flMain, mapsFragment);
         ft.addToBackStack(null);
