@@ -36,16 +36,16 @@ public class MainActivity extends AppCompatActivity  {
     private static final int REQUEST_PERMISSOES = 1;
     private MapsFragment mapsFragment;
 
+
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
 
-                    goToFragment(new HomeFragment());
-                    return true;
                 case R.id.navigation_profile:
 
                     goToFragment(new ProfileFragment());
@@ -105,8 +105,12 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         mTextMessage = (TextView) findViewById(R.id.message);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(0);
+
+
         setUser();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -118,6 +122,8 @@ public class MainActivity extends AppCompatActivity  {
                 requestPermissions(permissoes, REQUEST_PERMISSOES);
             }
         }
+
+        goToFragment(new ClientsFragment());
     }
 
     private void  setUser(){
@@ -129,7 +135,9 @@ public class MainActivity extends AppCompatActivity  {
             String email = firebaseUser.getEmail();
             Uri photoUrl = firebaseUser.getPhotoUrl();
 
-
+            if (photoUrl==null){
+                photoUrl = Uri.parse("https://cbsnews2.cbsistatic.com/hub/i/r/2017/05/11/759f70c0-804e-4afa-8493-f80fc1b09ab3/thumbnail/620x350/f1625b916682d938a132af464524193a/istock-526142422.jpg");
+            }
              user = new User(uid, name, photoUrl.toString(), email);
 
         }
@@ -152,7 +160,11 @@ public class MainActivity extends AppCompatActivity  {
     public void goToMapsClients() {
 
         mapsFragment =  new MapsFragment();
+        Bundle parameters = new Bundle();
+        parameters.putSerializable("user", user);
+        mapsFragment.setArguments(parameters);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         ft.replace(R.id.flMain, mapsFragment);
         ft.addToBackStack(null);
         ft.commit();

@@ -41,13 +41,18 @@
             android:layout_margin="16dp"
             />
 
+
+
+
         <Button
             android:id="@+id/btLogout"
+            android:textColor="@color/white_overlay"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:gravity="center_horizontal"
-            android:text="Log out"/>
+            android:layout_marginTop="8dp"
+            android:text="@string/sign_out"
+            />
 
     </LinearLayout>
 

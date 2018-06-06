@@ -2,7 +2,7 @@
     <string name="app_name">Orçamento</string>
     <string name="title_home" translatable="false">Home</string>
     <string name="title_settings">Settings</string>
-    <string name="title_activity_login" translatable="false">Sign in</string>
+
 
     <!--Facebook-->
     <string name="facebook_app_id" translatable="false">618871065128096</string>
@@ -11,24 +11,28 @@
     <!-- Strings related to login -->
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in" translatable="false">Sign in or register</string>
-    <string name="action_sign_in_short" translatable="false">Sign in</string>
+    <string name="action_sign_in" >Sign in</string>
+
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
     </string>
 
     <string name="title_activity_splash" translatable="false">Splash</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
     <string name="title_profile">"Profile "</string>
     <string name="title_clients">Clients</string>
     <string name="title_save">Save</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_maps">Map</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="create_account">Create Account</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="address">Address</string>
 
 </resources>

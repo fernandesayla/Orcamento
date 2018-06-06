@@ -11,5 +11,14 @@
     <string name="error_incorrect_password">Password está incorreto</string>
     <string name="error_field_required">Campo obrigatório</string>
     <string name="permission_rationale">Permissão para acessar os contatos para promover email autocomplete.</string>
-    <string name="title_maps">Map</string>
+    <string name="title_maps">Mapa</string>
+    <string name="sign_out">Sair</string>
+    <string name="verify_email">Verificar Email</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="title_save">Salvar</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="name">Nome</string>
+    <string name="phone">Telefone</string>
+    <string name="address" translatable="false">Endereço</string>
 </resources>

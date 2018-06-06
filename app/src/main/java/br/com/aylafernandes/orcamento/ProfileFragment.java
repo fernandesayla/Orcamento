@@ -44,16 +44,9 @@ public class ProfileFragment extends Fragment {
         User user = (User) parametros.getSerializable("user");
 
         if (user != null) {
-
-
-
-
             mMameAndSurname.setText(user.getName());
             email.setText(user.getEmail());
             Picasso.get().load(user.getPhotoUrl()).into(imageView);
-
-
-
         }
 
 
