@@ -33,7 +33,7 @@ public class ClientsFragment extends Fragment {
 
     List<Client> listClients;
 
-
+    ClientsDelegate delegate;
 
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
@@ -45,6 +45,12 @@ public class ClientsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        delegate = (ClientsDelegate) getActivity();
+        delegate.nameActivity("Lista de Clientes");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,30 +61,22 @@ public class ClientsFragment extends Fragment {
 
             fab =  rootView.findViewById(R.id.fab);
 
-
-
             mRecycler = (RecyclerView) rootView.findViewById(R.id.rv_fragment_clientes);
             mRecycler.setHasFixedSize(true);
 
-            Bundle parametros = getArguments();
-            User user = (User) parametros.getSerializable("user");
 
-          loadClients()    ;
-        //  mclientsRef = mRootRef.child("users").child(user.getUid()).child("clients");
-
+            loadClients();
 
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.selectClient(new Client(), new ClientEditFragment());
-
+                    delegate.lidaComClickDoFAB();
 
                 }
             });
 
-          //  updateFireBase(user);
+
 
         setUpRecyclerView(listClients);
             return rootView;
@@ -95,8 +93,6 @@ public class ClientsFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_location_clients, menu);
@@ -108,9 +104,7 @@ public class ClientsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.location_menu_item_maps){
-                 MainActivity mainActivity = (MainActivity) getActivity();
-
-            mainActivity.goToMapsClients();
+               delegate.goToMapa();
 
         }
 
@@ -135,9 +129,7 @@ public class ClientsFragment extends Fragment {
 
     private void setUpRecyclerView(List<Client> listClients ) {
 
-
         ClientsAdapter adapter = new ClientsAdapter(getContext(), listClients );
-
 
         mRecycler.setAdapter(adapter);
 
@@ -145,10 +137,7 @@ public class ClientsFragment extends Fragment {
             @Override
             public void onItemClick(Client client) {
 
-
-                MainActivity mainActivity = (MainActivity) getActivity();
-
-                mainActivity.selectClient(client, new ClientDetailFragment());
+                delegate.handleSelectClient(client);
 
             }
         });

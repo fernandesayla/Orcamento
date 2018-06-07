@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -28,7 +29,7 @@ import java.util.List;
 import br.com.aylafernandes.orcamento.models.Client;
 import br.com.aylafernandes.orcamento.models.User;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements ClientsDelegate {
 
     private TextView mTextMessage;
     private  String nome;
@@ -48,14 +49,20 @@ public class MainActivity extends AppCompatActivity  {
 
                 case R.id.navigation_profile:
 
-                    goToFragment(new ProfileFragment());
+                    Bundle parameters = new Bundle();
+                    ProfileFragment fragment = new ProfileFragment();
+
+                    parameters.putSerializable("user", user);
+
+                    fragment.setArguments(parameters);
+                    goToFragment(fragment, false);
                     return true;
                 case R.id.navigation_clients:
 
-                    goToFragment(new ClientsFragment());
+                    goToFragment(new ClientsFragment(), false);
                     return true;
                 case R.id.navigation_settings:
-                     goToFragment( new SettingsFragment());
+                     goToFragment( new SettingsFragment(), false);
                     return true;
             }
             return false;
@@ -64,11 +71,15 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    public void goToFragment(Fragment fragment){
-        Bundle parameters = new Bundle();
-        parameters.putSerializable("user", user);
-        fragment.setArguments(parameters);
+
+
+    public void goToFragment(Fragment fragment, Boolean empilha){
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (empilha){
+            ft.addToBackStack(null);
+        }
+
         ft.replace(R.id.flMain, fragment);
         ft.commit();
     }
@@ -78,20 +89,17 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSOES) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-//                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-//                new UserLocation(this, mapsFragment);
-//            }
+
             for(int i = 0; i < grantResults.length; i++){
                 int resultado = grantResults[i];
                 String permissao = permissions[i];
 
                 System.out.println(permissao+ " está garantida : " + (resultado == PackageManager.PERMISSION_GRANTED) );
                 if (resultado == PackageManager.PERMISSION_GRANTED){
-                //    new UserLocation(this, mapsFragment);
+
                 }
 
-                // pode fazer sua regra de negócio
+
             }
         }
     }
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
 
-        goToFragment(new ClientsFragment());
+        goToFragment(new ClientsFragment(), true);
     }
 
     private void  setUser(){
@@ -143,31 +151,55 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    public void selectClient(Client client, Fragment fragment) {
 
 
+    @Override
+    public void lidaComClickDoFAB() {
+
+
+        goToFragment(new ClientEditFragment(), true);
+    }
+
+    @Override
+    public void goToMapa() {
         Bundle parameters = new Bundle();
-        parameters.putString("user",user.getUid());
-        parameters.putSerializable("client", client);
+        MapsFragment fragment = new MapsFragment();
+
+
         fragment.setArguments(parameters);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.flMain, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
 
 
-    public void goToMapsClients() {
-
-        mapsFragment =  new MapsFragment();
-        Bundle parameters = new Bundle();
         parameters.putSerializable("user", user);
-        mapsFragment.setArguments(parameters);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        ft.replace(R.id.flMain, mapsFragment);
-        ft.addToBackStack(null);
-        ft.commit();
 
+        fragment.setArguments(parameters);
+
+        goToFragment(fragment, true);
     }
+
+
+    @Override
+    public void backToMain() {
+        goToFragment(new ClientsFragment(), false);
+    }
+
+    @Override
+    public void handleSelectClient(Client client) {
+
+        Bundle parameters = new Bundle();
+
+        parameters.putSerializable("client", client);
+        ClientEditFragment fragment = new ClientEditFragment();
+
+        fragment.setArguments(parameters);
+
+
+        goToFragment(fragment, true);
+    }
+
+    @Override
+    public void nameActivity(String name) {
+        setTitle(name);
+    }
+
+
 }

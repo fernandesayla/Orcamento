@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ProfileFragment extends Fragment {
 
-
+    User user = new User();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,8 +40,12 @@ public class ProfileFragment extends Fragment {
         CircleImageView imageView = view.findViewById(R.id.profileImage);
         TextView email = view.findViewById(R.id.profile_email);
 
+
         Bundle parametros = getArguments();
-        User user = (User) parametros.getSerializable("user");
+        if (parametros !=null){
+          user = (User) parametros.getSerializable("user");
+        }
+
 
         if (user != null) {
             mMameAndSurname.setText(user.getName());
