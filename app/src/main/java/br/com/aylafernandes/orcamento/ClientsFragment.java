@@ -137,7 +137,7 @@ public class ClientsFragment extends Fragment {
             @Override
             public void onItemClick(Client client) {
 
-                delegate.handleSelectClient(client);
+                delegate.handleSelectClientDetail(client);
 
             }
         });

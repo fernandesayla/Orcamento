@@ -183,6 +183,20 @@ public class MainActivity extends AppCompatActivity implements ClientsDelegate {
     }
 
     @Override
+    public void handleSelectClientDetail(Client client) {
+
+        Bundle parameters = new Bundle();
+
+        parameters.putSerializable("client", client);
+        ClientDetailFragment fragment = new ClientDetailFragment();
+
+        fragment.setArguments(parameters);
+
+
+        goToFragment(fragment, true);
+    }
+
+    @Override
     public void handleSelectClient(Client client) {
 
         Bundle parameters = new Bundle();
