@@ -87,17 +87,6 @@
 
 
 
-        <Button
-            android:id="@+id/verify_email_button"
-            android:textColor="@color/white_overlay"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="8dp"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="@string/verify_email"
-             />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/button_facebook_login"

@@ -3,6 +3,7 @@ package br.com.aylafernandes.orcamento;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,10 +27,17 @@ public class ProfileFragment extends Fragment {
 
     User user = new User();
 
+
     public ProfileFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ClientsDelegate delegate = (ClientsDelegate) getActivity();
+        delegate.nameActivity(getResources().getString(R.string.title_profile));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +47,6 @@ public class ProfileFragment extends Fragment {
         TextView mMameAndSurname = view.findViewById(R.id.nameAndSurname);
         CircleImageView imageView = view.findViewById(R.id.profileImage);
         TextView email = view.findViewById(R.id.profile_email);
-
 
         Bundle parametros = getArguments();
         if (parametros !=null){

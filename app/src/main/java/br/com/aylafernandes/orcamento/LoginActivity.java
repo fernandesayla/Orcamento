@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
 
-        findViewById(R.id.verify_email_button).setOnClickListener(this);
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -250,8 +249,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
         } else if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-        } else if (i == R.id.verify_email_button) {
-           // sendEmailVerification();
         }
     }
 }

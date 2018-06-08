@@ -3,6 +3,7 @@ package br.com.aylafernandes.orcamento;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,6 +25,12 @@ public class SettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ClientsDelegate delegate = (ClientsDelegate) getActivity();
+        delegate.nameActivity(getResources().getString(R.string.title_settings));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
